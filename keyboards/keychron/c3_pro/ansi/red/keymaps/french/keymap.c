@@ -17,6 +17,8 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
+#define MY_LAUN LCTL(LALT(KC_R))
+
 enum layers {
     WIN_BASE,
     LAYER_01,
@@ -39,6 +41,11 @@ enum layers {
     FN_LAYER,
 };
 
+enum french_keycodes {
+    EM_SUPER = SAFE_RANGE,
+    EM_SUPEI
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_BASE] = LAYOUT_tkl_ansi(
@@ -47,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,    KC_BSLS,  KC_DEL,   KC_END,   KC_PGDN,
         KC_LALT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,            KC_UP,
-        KC_LWIN,  KC_LALT,  KC_LCTL,                                KC_SPC,                                 KC_RCTL,MO(FN_LAYER),KC_BTN1,   KC_RALT,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_LWIN,  KC_LALT,  KC_LCTL,                                KC_SPC,                                 KC_RCTL,MO(FN_LAYER),EM_SUPEI,   KC_RALT,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [LAYER_01] = LAYOUT_tkl_ansi(
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
@@ -64,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,    KC_BSLS,  KC_DEL,   KC_END,   KC_PGDN,
         KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,            KC_UP,
-        KC_BTN1,  KC_LALT,  KC_LCTL,                                KC_SPC,                                 KC_RCTL,  MO(FN_LAYER),KC_BTN1, KC_RALT,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_BTN1,  KC_LALT,  KC_LCTL,                                KC_SPC,                                 KC_RCTL,  MO(FN_LAYER),KC_BTN2, KC_RALT,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [LAYER_04] = LAYOUT_tkl_ansi(
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
@@ -167,11 +174,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FN_LAYER] = LAYOUT_tkl_ansi(
         _______,            KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  BL_DOWN,  BL_UP,    KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  KC_F,     CM_TOGG,  BL_STEP,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    QK_BOOT,  _______,  _______,  _______,
-        BL_TOGG,  BL_STEP,  BL_UP,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
-        KC_OSSW,  _______,  BL_DOWN,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
-        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,
-        _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,  _______,  _______,  _______),
+        _______,  KC_BTN1,  KC_BTN2,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    QK_BOOT,  _______,  _______,  _______,
+        BL_TOGG,  BL_STEP,  _______,  _______,  MY_LAUN,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
+        KC_OSSW,  _______,  EM_SUPER, EM_SUPEI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
+        _______,            BL_UP  ,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,
+        KC_LWIN,  _______,  BL_DOWN,                                _______,                                _______,  _______,  _______,    _______,  _______,  _______,  _______),
 };
 
 // clang-format on
@@ -183,5 +190,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron(keycode, record)) {
         return false;
     }
+
+    switch (keycode) {
+    case EM_SUPER :
+        if (record->event.pressed) {
+             SEND_STRING(SS_LALT("x")"@s");
+        }
+        return false;
+        break;
+    case EM_SUPEI :
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("x")"@s");
+        }
+        return false;
+        break;
+    }
+
     return true;
 }
